@@ -70,8 +70,8 @@ class HomeCategory extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 24,
+               SizedBox(
+                height: 24.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
