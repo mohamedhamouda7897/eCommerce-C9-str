@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 void main() {
@@ -11,88 +13,111 @@ class AppSliderAndCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: HomeCategory.routName,
-      debugShowCheckedModeBanner: false,
-      routes: {HomeCategory.routName: (context) => const HomeCategory()},
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        // Use builder only if you need to use library outside ScreenUtilInit context
+        builder: (_, child) {
+          return MaterialApp(
+            initialRoute: HomeCategory.routName,
+            debugShowCheckedModeBanner: false,
+            routes: {HomeCategory.routName: (context) => const HomeCategory()},
+          );
+        });
   }
 }
 
-class HomeCategory extends StatefulWidget {
+class HomeCategory extends StatelessWidget {
   const HomeCategory({super.key});
   static const String routName = 'routeone';
-
-  @override
-  State<HomeCategory> createState() => _HomeCategoryState();
-}
-
-class _HomeCategoryState extends State<HomeCategory> {
-  double currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          CarouselSlider(
-            items: const [
-              BuildImage(
-                image: 'assets/images/property1_default.png',
-                index: 0,
-              ),
-              BuildImage(
-                image: 'assets/images/group12.png',
-                index: 1,
-              ),
-              BuildImage(
-                image: 'assets/images/group13.png',
-                index: 2,
-              )
-            ],
-            options: CarouselOptions(
-              height: 400,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.linear,
-              scrollDirection: Axis.horizontal,
-              enlargeCenterPage: true,
-              enlargeFactor: .5,
-              pageSnapping: true,
-              onScrolled: (value) {
-                currentIndex = value!;
-                setState(() {});
-              },
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(left: 8.0.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: CarouselSlider(
+                    items: const [
+                      SizedBox(
+                        child: BuildImage(
+                          image: 'assets/images/property1_default.png',
+                          index: 0,
+                        ),
+                      ),
+                      SizedBox(
+                        child: BuildImage(
+                          image: 'assets/images/group12.png',
+                          index: 1,
+                        ),
+                      ),
+                      SizedBox(
+                        child: BuildImage(
+                          image: 'assets/images/group13.png',
+                          index: 2,
+                        ),
+                      )
+                    ],
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      aspectRatio: 2,
+                      viewportFraction: 1,
+                      enableInfiniteScroll: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Categories',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18.sp, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      'view all',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.sp, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                SizedBox(
+                  height: 450.h,
+                  child: GridView.builder(
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 0,
+                      childAspectRatio:
+                          2, // Aspect ratio of the items (1 for square)
+                    ),
+                    itemCount: 80, // Total number of items
+                    itemBuilder: (BuildContext context, int index) {
+                      return BuildCategory(
+                        img:
+                            'https://th.bing.com/th/id/R.16e5970f938011ce262701a9e2cc2dd1?rik=ffV0C3V0MCn45g&pid=ImgRaw&r=0',
+                        description: 'Error 404',
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Categories',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                'view all',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ), 
-
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ), 
-        SizedBox(
-          height: 150,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => const BuildCategory(img: 'https://static.vecteezy.com/system/resources/previews/005/883/254/original/page-not-found-404-error-concept-illustration-free-vector.jpg', description: 'Error'), separatorBuilder: (context, index) => const SizedBox(width: 20), itemCount: 30))
-        ],
+        ),
       ),
     );
   }
@@ -108,8 +133,9 @@ class BuildImage extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          width: double.infinity,
-          height: 200,
+          margin: EdgeInsets.only(right: 10.w),
+          width: MediaQuery.of(context).size.width,
+          height: 200.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: DecorationImage(
@@ -118,8 +144,8 @@ class BuildImage extends StatelessWidget {
                   ),
                   fit: BoxFit.fill)),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+        Positioned(
+          bottom: 15.h,
           child: AnimatedSmoothIndicator(
               duration: const Duration(milliseconds: 400),
               activeIndex: index,
@@ -141,17 +167,30 @@ class BuildCategory extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 100.w,
+          height: 100.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            image: DecorationImage(image: NetworkImage(img, )),
+            image: DecorationImage(
+                image: NetworkImage(
+                  img,
+                ),
+                fit: BoxFit.fill),
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ), 
-        Text(description)
+        SizedBox(
+          height: 8.h,
+        ),
+        SizedBox(
+          width: 65.w,
+          child: Text(
+            description,
+            style: GoogleFonts.poppins(
+                fontSize: 14.sp, fontWeight: FontWeight.w400),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        )
       ],
     );
   }
