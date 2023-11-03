@@ -13,19 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(430, 932),
-        // minTextAdapt: true,
-        // splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp(
-            initialRoute: ProductListScreen.routeName,
-            debugShowCheckedModeBanner: false,
-            routes: {
-              ProductListScreen.routeName: (context) =>
-                  const ProductListScreen()
-            },
-          );
-        });
+      designSize: const Size(430, 932),
+      builder: (_, child) {
+        return MaterialApp(
+          initialRoute: ProductListScreen.routeName,
+          debugShowCheckedModeBanner: false,
+          routes: {
+            ProductListScreen.routeName: (context) => const ProductListScreen(),
+          },
+        );
+      },
+    );
   }
 }
 
@@ -38,11 +36,13 @@ class ProductListScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: GridView.builder(
+          physics: const BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 16,
-              crossAxisCount: 2,
-              mainAxisExtent: MediaQuery.of(context).size.height - 656.h,
-              crossAxisSpacing: 16.0),
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16.0,
+            mainAxisExtent: MediaQuery.of(context).size.height - 652.h,
+            crossAxisCount: 2,
+          ),
           itemCount: 20,
           padding: EdgeInsets.symmetric(
             horizontal: 16.0.w,
@@ -84,7 +84,7 @@ class ProductListIem extends StatelessWidget {
                   "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7ebea844-598a-4303-976a-5ce9da90db71/air-jordan-1-elevate-low-shoes-8wFtWd.png",
                   fit: BoxFit.cover,
                   width: 191.0.w,
-                  height: 128.0.h,
+                  height: 126.0.h,
                 ),
               ),
               Padding(
