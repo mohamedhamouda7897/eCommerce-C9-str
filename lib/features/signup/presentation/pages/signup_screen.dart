@@ -25,6 +25,7 @@ class SignUpScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
+
             backgroundColor: Colors.blue,
             body: Center(
               // Center is a layout widget. It takes a single child and positions it
