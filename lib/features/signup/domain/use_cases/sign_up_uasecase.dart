@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:ecommerce_c9_str/core/error/failures.dart';
 import 'package:ecommerce_c9_str/features/signup/domain/entities/UserEntity.dart';
 
 import '../../data/models/request_data.dart';
@@ -8,6 +10,6 @@ class SignUpUseCase {
 
   SignUpUseCase(this.signUpRepo);
 
-  Future<UserEntity> call(RequestData requestData) =>
+  Future<Either<Failures, UserEntity>> call(RequestData requestData) =>
       signUpRepo.signUp(requestData);
 }

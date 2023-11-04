@@ -1,10 +1,16 @@
+import 'package:ecommerce_c9_str/config/routes/routes.dart';
 import 'package:ecommerce_c9_str/features/signup/presentation/bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     bool _pass = false;
@@ -21,11 +27,23 @@ class SignUpScreen extends StatelessWidget {
                 title: Center(child: CircularProgressIndicator()),
               ),
             );
+          } else if (state.screenType == ScreenStatus.failures) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Text("Error"),
+                content: Text(state.failures?.message ?? ""),
+              ),
+            );
+          } else if (state.screenType == ScreenStatus.successfully) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutesName.home, (route) => false);
           }
         },
         builder: (context, state) {
           return Scaffold(
-
             backgroundColor: Colors.blue,
             body: Center(
               // Center is a layout widget. It takes a single child and positions it
@@ -159,9 +177,9 @@ class SignUpScreen extends StatelessWidget {
                                 color: Theme.of(context).primaryColorDark,
                               ),
                               onPressed: () {
-                                setState(() {
-                                  _pass = !_pass;
-                                });
+                                // setState(() {
+                                //   _pass = !_pass;
+                                // });
                               },
                             ),
                             border: OutlineInputBorder(

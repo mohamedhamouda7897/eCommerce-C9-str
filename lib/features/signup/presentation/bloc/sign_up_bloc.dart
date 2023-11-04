@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:ecommerce_c9_str/core/api/api_manager.dart';
 import 'package:ecommerce_c9_str/core/error/failures.dart';
-import 'package:ecommerce_c9_str/features/signup/data/data_sources/local/signup_local_ds.dart';
-import 'package:ecommerce_c9_str/features/signup/data/data_sources/local/signup_local_ds_impl.dart';
 import 'package:ecommerce_c9_str/features/signup/data/data_sources/remote/signup_remote_ds.dart';
 import 'package:ecommerce_c9_str/features/signup/data/data_sources/remote/signup_remote_ds_impl.dart';
 import 'package:ecommerce_c9_str/features/signup/data/models/request_data.dart';
@@ -25,26 +22,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       if (event is SignUpButtonEvent) {
         emit(state.copyWith(screenType: ScreenStatus.loading));
         ApiManager apiManager = ApiManager();
-
-        SignUpRemoteDS signUpRemoteDS = SignUpRemoteDSImpl(apiManager);
-        SignUpRepo signUpRepo = SignUpRepoImpl(signUpRemoteDS);
-        SignUpUseCase signUpUseCase = SignUpUseCase(signUpRepo);
-
         RequestData requestData = RequestData(
             name: "Sara",
             email: "sarahmedrageb@gmail.com",
             password: "123@Sara",
             rePassword: "123@Sara",
             phone: "01111111111");
-        try {
-          UserEntity value = await signUpUseCase.call(requestData);
+        SignUpRemoteDS signUpRemoteDS = SignUpRemoteDSImpl(apiManager);
+        SignUpRepo signUpRepo = SignUpRepoImpl(signUpRemoteDS);
+
+        var value = await SignUpUseCase(signUpRepo)(requestData);
+
+        value.fold((l) {
+          emit(state.copyWith(screenType: ScreenStatus.failures, failures: l));
+        }, (r) {
           emit(state.copyWith(
-              screenType: ScreenStatus.successfully, userEntity: value));
-        } catch (e) {
-          emit(state.copyWith(
-              screenType: ScreenStatus.failures,
-              failures: RemoteFailures(e.toString())));
-        }
+              screenType: ScreenStatus.successfully, userEntity: r));
+        });
       }
     });
   }

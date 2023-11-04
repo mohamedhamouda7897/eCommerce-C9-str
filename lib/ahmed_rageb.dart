@@ -183,7 +183,7 @@ class BuildCategory extends StatelessWidget {
                 color: const Color(0xff06004F),
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
         )

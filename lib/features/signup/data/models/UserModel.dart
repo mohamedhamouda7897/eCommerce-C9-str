@@ -14,6 +14,10 @@ class UserModel extends UserEntity {
   }
 
   String? message;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [super.props, message];
 }
 
 class UserData extends UserDataEntity {
@@ -30,4 +34,8 @@ class UserData extends UserDataEntity {
   }
 
   String? role;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [super.props];
 }
