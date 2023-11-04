@@ -4,8 +4,8 @@ import 'package:ecommerce_c9_str/features/signup/presentation/pages/signup_scree
 import 'package:flutter/material.dart';
 
 class AppRoutesName {
-  static const String login = "login";
-  static const String signUp = "/";
+  static const String login = "/";
+  static const String signUp = "singup";
   static const String home = "Home";
 }
 
