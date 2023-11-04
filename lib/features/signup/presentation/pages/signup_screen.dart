@@ -24,10 +24,12 @@ class SignUpScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
+
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 SignUpBloc.get(context).add(SignUpButtonEvent());
               },
+
             ),
           );
         },
