@@ -1,25 +1,7 @@
 
-import 'package:ecommerce_c9_str/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const AppAccount());
-}
-
-class AppAccount extends StatelessWidget {
-  const AppAccount({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-            initialRoute: Account.routeName,
-            debugShowCheckedModeBanner: false,
-            routes: {Account.routeName: (context) => Account()},
-          );
-
-  }
-}
 class Account extends StatelessWidget{
   static const String routeName="account";
 
