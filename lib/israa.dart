@@ -32,6 +32,7 @@ class Account extends StatelessWidget{
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Image.asset("assets/images/logo.png"),
               Text("Welcome, Mohamed",style:GoogleFonts.poppins(
                 color: Color(0xFF06004F),
                 fontSize: 18,
@@ -43,7 +44,7 @@ class Account extends StatelessWidget{
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),),
-                 SizedBox(height: 15,),
+                 SizedBox(height: 20,),
                  InputField("Your full name","please enter your name"),
                  InputField("Your E-mail","please enter your email"),
                 InputField("Your Password","please enter your Password"),
@@ -73,7 +74,7 @@ var formKey = GlobalKey<FormState>();
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),),
-          SizedBox(height: 10,),
+          SizedBox(height: 5,),
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             obscureText:(header=="Your Password")?true:false,
@@ -88,14 +89,14 @@ var formKey = GlobalKey<FormState>();
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(
-                  width: 2,
-                  color: border,
+                  width: 1,
+                  color:Color(0xFF004182).withOpacity(.3),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(
-                  color: border,
+                  color:Color(0xFF004182).withOpacity(.3),
                 ),
               ),
             ),
